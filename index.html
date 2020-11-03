@@ -19,15 +19,20 @@
             2 : "Lose"
         }
         function getPlayerInput() {
-            playerSelection = prompt("What's your selection?: Rock/Paper/Scissors")
+            isNotValid = true
+            while(isNotValid){
+                playerSelection = prompt("What's your selection?: Rock/Paper/Scissors")
+                isNotValid = checkIfValid(playerSelection.toLowerCase())
+            }
             return playerSelection.toLowerCase()
         }
 
         function checkIfValid(playerSelection) {
             if (playerSelection in validSelections) {
-                return true
+                return false
             }
-            return false
+            console.log("Please enter a valid selection of: Rock/Paper/Scissors")
+            return true
         }
 
         function computerPlay() {
@@ -58,20 +63,42 @@
         function returnGameResults(playerSelection, computerSelection, result) {
             switch (result) {
                 case 0:
-                    return gameResults[result] + " " + playerSelection + " and " + computerSelection + " are the same"
+                    console.log(gameResults[result] + " " + playerSelection + " and " + computerSelection + " are the same")
+                    return 0
 
                 case 1:
-                    return "You " + gameResults[result] + " " + playerSelection +" beats " + computerSelection
+                    console.log("You " + gameResults[result] + " " + playerSelection +" beats " + computerSelection)
+                    return 1
             
                 case 2: 
-                    return "You " + gameResults[result] + " " + computerSelection +" beats " + playerSelection
+                    console.log("You " + gameResults[result] + " " + computerSelection +" beats " + playerSelection)
+                    return 0
             }
         }
 
         function playRound(playerSelection, computerSelection) {
-            console.log(checkForWinner(playerSelection, computerSelection))
+            return checkForWinner(playerSelection, computerSelection)
 
         }
-        playRound(getPlayerInput(), computerPlay())
+
+        function game() {
+            let keegGoing = true
+            let matches = 0
+            let playerWins = 0
+            while(keegGoing) {
+                if(matches > 3) {
+                    keegGoing = false
+                }
+                playerWins += playRound(getPlayerInput(), computerPlay())
+                matches+=1
+            }
+            gamesToWin = Math.floor((matches+1)/2)
+            console.log(playerWins >= gamesToWin ? ("Congrats you won the majority of games: " + 
+            playerWins + "|" + (matches-playerWins)) : 
+            ("Sorry you didn't win the majority of games " + 
+            playerWins + "|" + (matches-playerWins)))
+        }
+        //playRound(getPlayerInput(), computerPlay())
+        game()
     </script>
 </html>
