@@ -7,19 +7,32 @@
             "scissors": "scissors"
         }
 
+        const computerSelections = {
+            0 : "rock",
+            1: "paper",
+            2: "scissors"
+        }
+
         const gameResults = {
             0 : "Tie",
             1 : "Win",
             2 : "Lose"
         }
         function getPlayerInput() {
-            playerSelection = prompt("What's your selection?: Rock/Paper/Scissor")
-            return playerSelection
+            playerSelection = prompt("What's your selection?: Rock/Paper/Scissors")
+            return playerSelection.toLowerCase()
+        }
+
+        function checkIfValid(playerSelection) {
+            if (playerSelection in validSelections) {
+                return true
+            }
+            return false
         }
 
         function computerPlay() {
-            let randomComputerSelection = Math.random(0,3)
-            computerSelection = validSelections[randomComputerSelection]
+            let randomComputerSelection = Math.floor(Math.random() * 3)
+            computerSelection = computerSelections[randomComputerSelection]
             return computerSelection
 
         }
@@ -31,13 +44,13 @@
 
             else if 
             ((playerSelection == "paper" && computerSelection == "rock") || 
-            (playerSelection == "rock" && computerSelection == "scissor") ||
-            (playerSelection == "scissor" && computerSelection == "paper")) {
+            (playerSelection == "rock" && computerSelection == "scissors") ||
+            (playerSelection == "scissors" && computerSelection == "paper")) {
                 return returnGameResults(playerSelection, computerSelection, 1)
             }
 
             else {
-                returnGameResults(playerSelection, computerSelection, 2)
+                return returnGameResults(playerSelection, computerSelection, 2)
             }
 
         }
@@ -45,13 +58,13 @@
         function returnGameResults(playerSelection, computerSelection, result) {
             switch (result) {
                 case 0:
-                return result + " " + playerSelection + " and " + computerSelection + " are the same"
+                    return gameResults[result] + " " + playerSelection + " and " + computerSelection + " are the same"
 
                 case 1:
-                    return "You " + result + " " + playerSelection +" beats " + computerSelection
+                    return "You " + gameResults[result] + " " + playerSelection +" beats " + computerSelection
             
                 case 2: 
-                    return "You " + result + " " + computerSelection +" beats " + playerSelection
+                    return "You " + gameResults[result] + " " + computerSelection +" beats " + playerSelection
             }
         }
 
