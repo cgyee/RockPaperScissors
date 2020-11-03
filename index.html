@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        const validSelections = {
+            "rock" : "rock",
+            "paper": "paper",
+            "scissors": "scissors"
+        }
+
+        const gameResults = {
+            0 : "Tie",
+            1 : "Win",
+            2 : "Lose"
+        }
+        function getPlayerInput() {
+            playerSelection = prompt("What's your selection?: Rock/Paper/Scissor")
+            return playerSelection
+        }
+
+        function computerPlay() {
+            let randomComputerSelection = Math.random(0,3)
+            computerSelection = validSelections[randomComputerSelection]
+            return computerSelection
+
+        }
+
+        function checkForWinner(playerSelection, computerSelection) {
+            if (playerSelection == computerSelection) {
+                return returnGameResults(playerSelection, computerSelection, 0)
+            }
+
+            else if 
+            ((playerSelection == "paper" && computerSelection == "rock") || 
+            (playerSelection == "rock" && computerSelection == "scissor") ||
+            (playerSelection == "scissor" && computerSelection == "paper")) {
+                return returnGameResults(playerSelection, computerSelection, 1)
+            }
+
+            else {
+                returnGameResults(playerSelection, computerSelection, 2)
+            }
+
+        }
+
+        function returnGameResults(playerSelection, computerSelection, result) {
+            switch (result) {
+                case 0:
+                return result + " " + playerSelection + " and " + computerSelection + " are the same"
+
+                case 1:
+                    return "You " + result + " " + playerSelection +" beats " + computerSelection
+            
+                case 2: 
+                    return "You " + result + " " + computerSelection +" beats " + playerSelection
+            }
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            console.log(checkForWinner(playerSelection, computerSelection))
+
+        }
+        playRound(getPlayerInput(), computerPlay())
+    </script>
+</html>
